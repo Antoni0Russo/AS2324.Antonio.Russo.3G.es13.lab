@@ -17,11 +17,18 @@ namespace AS2324.Antonio.Russo._3G.es13.lab
             Console.WriteLine("riempimento");
 
             CaricaVettori(ref peso, ref eta);
-            Statistiche(ref peso, ref media, ref min, ref max, dimensione);
-            Console.WriteLine($" peso:  {peso}");
+            Statistiche(ref peso, ref media, ref min, ref max);
+            
             Console.WriteLine($" media:  {media}");
             Console.WriteLine($" minimo:  {min}");
             Console.WriteLine($" massimo:  {max}");
+            Ordina(ref  peso, ref eta);
+            for(int i = 0; i < peso.Length; i++)
+            {
+                Console.WriteLine($"\t peso persona {i +1 } :{peso[i]}");
+                Console.WriteLine($"\t eta persona {i + 1} :{eta[i]}");
+            }
+           
         }
         static void CaricaVettori(ref int[] peso,ref int[] eta)
         {
@@ -41,14 +48,14 @@ namespace AS2324.Antonio.Russo._3G.es13.lab
                 } while (eta[i] < 18 || eta[i] > 99);
             }
         }
-        static void Statistiche(ref int[] peso, ref double media,ref double min,ref double max,int dimensione )
+        static void Statistiche(ref int[] peso, ref double media,ref double min,ref double max)
         {
             int somma = 0;
             for(int i = 0;i < peso.Length;i++)
             {
-                somma = peso[i];
+                somma  += peso[i];
             }
-            media = somma / dimensione;
+            media = somma / peso.Length;
 
             max = peso[0];
             for (int i = 1; i < peso.Length; i++)
@@ -66,6 +73,31 @@ namespace AS2324.Antonio.Russo._3G.es13.lab
                     min = peso[i];
                 }
             }
+        }
+        static void Ordina(ref int[] peso, ref int[] eta)
+        {
+            for (int i = 0; i < peso.Length; i++)
+            {
+                int minIndex = i;
+                for(int j = 0; j < peso.Length; j++)
+                {
+                    if (peso[j] < peso[minIndex])
+                    {
+                        minIndex = j;
+                    }
+                }
+                int temp = peso[minIndex];
+                peso[minIndex] = peso[i];
+                peso[i] = temp;
+
+                int temp1 = eta[minIndex];
+                eta[minIndex] = eta[i];
+                eta[i] = temp1;
+
+
+
+            }
+
         }
     }
 }
